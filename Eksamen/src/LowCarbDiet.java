@@ -1,4 +1,4 @@
-public class LowCardDiet {
+public class LowCarbDiet {
 
     Float minWeightKg;
 
