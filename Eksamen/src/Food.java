@@ -1,12 +1,19 @@
 public class Food {
+
     String name;
     boolean isVegan;
     float caloriesPerDay;
+    FoodType type;
+
     // Konstruktør
-    Food(String name, boolean isVegan, float caloriesPerDay){
+    public Food(String name, boolean isVegan, float caloriesPerDay, FoodType type) {
         this.name = name;
         this.isVegan = isVegan;
         this.caloriesPerDay = caloriesPerDay;
+        this.type = type;
     }
+
+
 }
+
 

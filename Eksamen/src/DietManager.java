@@ -1,5 +1,5 @@
 public class DietManager {
 
-    Boolean areCompatible;
+    boolean areCompatible;
 
 }

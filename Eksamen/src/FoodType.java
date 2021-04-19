@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public enum FoodType {
+public enum FoodType {
+    Recipe,
+    Protein,
+    Carb,
+    Fat,
 }
