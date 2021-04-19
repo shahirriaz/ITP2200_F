@@ -1,6 +1,5 @@
 public class LowCarbDiet extends Diet {
 
-
     Float minWeightKg;
 
     public LowCarbDiet(Float minWeightKg) {
