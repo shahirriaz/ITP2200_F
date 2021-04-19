@@ -1,14 +1,11 @@
 public class Person{
 
-
     Food favoriteFood;
     Food[] allergies;
     Diet diet;
     Float weight;
 
-    public Person() {
-
-    }
+    public Person() {}
 
     public Person(Food favoriteFood, Food[] allergies, Diet diet, Float weight) {
         this.favoriteFood = favoriteFood;
