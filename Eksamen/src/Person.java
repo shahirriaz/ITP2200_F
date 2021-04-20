@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Person{
 
     Food favoriteFood;
@@ -5,7 +7,9 @@ public class Person{
     Diet diet;
     Float weight;
 
-    public Person() {}
+//    public Person() {}
+
+
 
     public Person(Food favoriteFood, Food[] allergies, Diet diet, Float weight) {
         this.favoriteFood = favoriteFood;
@@ -46,6 +50,15 @@ public class Person{
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "favoriteFood=" + favoriteFood +
+                ", allergies=" + Arrays.toString(allergies) +
+                ", diet=" + diet +
+                ", weight=" + weight +
+                '}';
+    }
 
 
 }

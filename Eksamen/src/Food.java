@@ -13,6 +13,11 @@ public class Food {
         this.type = type;
     }
 
+    /*USING IT TO DESCRIBE NAME OF FOODS ONLY, EXAMPLE: MEAT AND ALLERGIES*/
+    public Food(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
