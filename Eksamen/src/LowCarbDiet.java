@@ -7,6 +7,7 @@ public class LowCarbDiet extends Diet {
     }
 
 
+
     @Override
     public String writeDuration() {
         return null;

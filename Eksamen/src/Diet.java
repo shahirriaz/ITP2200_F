@@ -8,18 +8,7 @@ public abstract class Diet {
     boolean isVegan;
 
     /*EMPTY CONSTRUCTOR*/
-    public Diet() {
-
-    }
-
-
-    public Diet(int daysDuration, String purpose, Food[] allowedFood, Boolean isVegan) {
-        this.daysDuration = daysDuration;
-        this.purpose = purpose;
-        this.allowedFood = allowedFood;
-        this.isVegan = isVegan;
-    }
-
+    public Diet() { };
 
 
 /*ABSTRACT METHODS, IMPLEMENTED IN PERSON CLASS??*/
