@@ -1,24 +1,68 @@
+import java.util.Arrays;
+import java.util.Date;
+
 /*ABSTRACT CLASS*/
 public abstract class Diet {
 
+    String name;
     int daysDuration;
+    int yearsDuration;
+    int monthDuration;
     String purpose;
     Food[] allowedFood;
     boolean isVegan;
 
-    public Diet(int daysDuration, String purpose, Food[] allowedFood, boolean isVegan) {
-        this.daysDuration = daysDuration;
-        this.purpose = purpose;
-        this.allowedFood = allowedFood;
-        this.isVegan = isVegan;
+
+    public String writeDuration(Diet d) {
+        String s = "This " + d.getName() + " lasts for " + d.getYearsDuration() + " years" + ", " + d.getMonthDuration() + " months"
+                + " ," + d.getDaysDuration() + " days";
+        return s;
     }
 
-/*ABSTRACT METHODS, IMPLEMENTED IN PERSON CLASS??*/
-   public abstract String writeDuration();
+    /*Takes Diet object and Food array as arguments
+    * Uses StringBuilder to add Food name from Array of Food Objects to the sentence "The following food is...salad, etc"
+    * Using comma to separate the output //output: The following food....Salad, Soup
+    * */
+    public String writeAllowedFood(Food[] allowedFood, Diet diet) {
+        String result = "";
 
-   public abstract String writeAllowedFood();
+        if (allowedFood.length > 0){
+            StringBuilder sb = new StringBuilder();
 
-/*GETTER AND SETTERS*/
+            for (Food food : allowedFood){
+                sb.append(food.getName()).append(", ");
+            }
+            result = sb.deleteCharAt(sb.length() - 2).toString();
+        }
+        return "The following food is allowed in this " + diet.getName() + ": "+ result;
+    }
+
+    /*GETTER AND SETTERS*/
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getYearsDuration() {
+        return yearsDuration;
+    }
+
+    public void setYeatsDuration(int yeatsDuration) {
+        this.yearsDuration = yeatsDuration;
+    }
+
+    public int getMonthDuration() {
+        return monthDuration;
+    }
+
+    public void setMonthDuration(int monthDuration) {
+        this.monthDuration = monthDuration;
+    }
+
     public int getDaysDuration() {
         return daysDuration;
     }
