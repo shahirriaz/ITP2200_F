@@ -51,7 +51,7 @@ public abstract class Diet {
         return yearsDuration;
     }
 
-    public void setYeatsDuration(int yeatsDuration) {
+    public void setYearsDuration(int yeatsDuration) {
         this.yearsDuration = yeatsDuration;
     }
 
