@@ -95,4 +95,16 @@ public abstract class Diet {
         isVegan = vegan;
     }
 
+    @Override
+    public String toString() {
+        return "Diet{" +
+                "name='" + name + '\'' +
+                ", daysDuration=" + daysDuration +
+                ", yearsDuration=" + yearsDuration +
+                ", monthDuration=" + monthDuration +
+                ", purpose='" + purpose + '\'' +
+                ", allowedFood=" + Arrays.toString(allowedFood) +
+                ", isVegan=" + isVegan +
+                '}';
+    }
 }

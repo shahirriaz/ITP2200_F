@@ -13,11 +13,33 @@ public class FlexitarianDiet extends Diet {
         super.setName(name);
     }
 
+    /*
+     * Whether a diet is non-vegan or vegan depends on if the food is vegan or non-vegan, this method checks that
+     * */
 
-    public FlexitarianDiet(Food[] food){
-        for (Food f: food) if (!f.isVegan) super.setVegan(false);
+    public void setVeganFalseIfFoodIsNonVegan(Food[] food){
+        for (Food f: food) if (!f.isVegan){
+            super.setVegan(false);
+            super.setAllowedFood(food);
+        }
 
     }
+
+    /*
+    * Whether a diet is non-vegan or vegan depends on if the food is vegan or non-vegan, this method checks that
+    * */
+
+    public void setVeganTrueIfFoodIsVegan(Food[] food){
+        for(Food f: food)
+                /*if food is not vegan*/
+            if (!f.isVegan)
+                throw new IllegalArgumentException("A vegan diet cannot contain any non-vegan food");
+            else {
+                super.setVegan(true);
+                super.setAllowedFood(food);
+            }
+    }
+
 
     /*IF THE DIET LASTS FOR ONLY DAYS*/
     public FlexitarianDiet(String name, int daysDuration){
@@ -32,9 +54,5 @@ public class FlexitarianDiet extends Diet {
     }
 
 
-
-    public void setDaysDuration(int duration){
-        super.setDaysDuration(duration);
-    }
-
 }
+
