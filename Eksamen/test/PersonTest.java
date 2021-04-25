@@ -5,28 +5,36 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PersonTest {
 
     @Test
-    public void createPersonTest(){
+    public void emptyConstructorTest(){
+        Person person = new Person();
 
-        /*FOOD OBJECTS*/
-        Food favoriteFood = new Food("Pizza", false, 200, FoodType.Carb);
-        Food preferredMeat = new Food("RedMeat");
-
-        /*ALLOWED FOOD ARRAY*/
-        Food[] allowedFood = new Food[2];
-        allowedFood[0] = new Food("Kjøttboller", false, 400, FoodType.Protein);
-        allowedFood[1] = new Food("MacDonalds", false, 600, FoodType.Protein);
-
-      //  FlexitarianDiet flexitarianDiet = new FlexitarianDiet(30, "weightGain", allowedFood, false, 200f, preferredMeat);
-
-        /*ALLERGIES ARRAY, CAN BE NULL*/
-        Food[] allergies = new Food[2];
-        allergies[0] = new Food("Gluten");
-        allergies[1] = new Food("Lactose");
-
-       //Person person_a = new Person(favoriteFood, allergies, flexitarianDiet, (float) 60.4);
-
-      //  System.out.println(person_a);
+        assertNotNull(person);
     }
+
+    /*Cannot follow a vegan diet if favorite food is non-vegan*/
+    /*Must not be allowed to follow VeganDiet*/
+    @Test (expected = IllegalArgumentException.class)
+    public void nonVeganFoodTest_a(){
+        Food favoriteFood = new Food("Hamburger", false);
+        VeganDiet veganDiet = new VeganDiet();
+        Person person = new Person();
+        person.setVeganDietIfFoodIsVegan(person,favoriteFood,veganDiet);
+    }
+
+    @Test
+    public void nonVeganFoodTest_b(){
+        Food favoriteFood = new Food("Apple", true);
+        VeganDiet veganDiet = new VeganDiet();
+        Person person = new Person();
+        person.setVeganDietIfFoodIsVegan(person,favoriteFood,veganDiet);
+        veganDiet.setVegan(true);
+
+        assertTrue(person.diet.isVegan);
+        System.out.println(person.toString());
+
+    }
+
+
 
 
 

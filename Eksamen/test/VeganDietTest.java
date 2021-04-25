@@ -23,34 +23,32 @@ public class VeganDietTest {
 
     }
 
-    /*will check if i add non-vegan food, then the diet is non-vegan*/
+    /*will check if i add ONLY NONE-VEGAN FOOD, then the diet is non-vegan*/
     @Test
-    public void setVeganFalseIfFoodIsNonVeganTest() {
+    public void setVeganStateToFalseTest_a() {
         Food[] nonVeganFood = new Food[3];
-        nonVeganFood[0] = new Food("Lasagna", false); /*non-vegan*/
-        nonVeganFood[1] = new Food("Pizza", false); /*non-vegan*/
-        nonVeganFood[2] = new Food("Banana", true);
-        VeganDiet diet = new VeganDiet();
-        diet.setVeganFalseIfFoodIsNonVegan(nonVeganFood);
+        nonVeganFood[0] = new Food("Lasagna", false);
+        nonVeganFood[1] = new Food("Meatball", false);
+        nonVeganFood[2] = new Food("Eggs", false);
+        VeganDiet veganDiet = new VeganDiet();
+        veganDiet.setVeganStateToFalse(nonVeganFood);
 
-        assertFalse(diet.isVegan());
-        System.out.println(diet.toString());
+        assertFalse(veganDiet.isVegan);
 
     }
 
-    /*will check if i add only vegan food, then the diet is vegan*/
+    /*will check if i add atleast ONE NONE-VEGAN food*/
     @Test
-    public void setVeganTrueIfFoodIsVeganTest() {
-        Food[] onlyVeganFood = new Food[3];
-        onlyVeganFood[0] = new Food("Apple", true);
-        onlyVeganFood[1] = new Food("Nuts", true);
-        onlyVeganFood[2] = new Food("Kiwi", true);
-        VeganDiet diet = new VeganDiet();
-        diet.setVeganTrueIfFoodIsVegan(onlyVeganFood);
+    public void setVeganStateToFalse_b() {
+        Food[] nonVeganFood = new Food[3];
+        nonVeganFood[0] = new Food("Lasagna", false); /*One none-vegan*/
+        nonVeganFood[1] = new Food("Apple", true);
+        nonVeganFood[2] = new Food("Banana", true);
+        VeganDiet veganDiet = new VeganDiet();
 
-        assertTrue(diet.isVegan());
-        System.out.println(diet.toString());
+        assertFalse(veganDiet.isVegan);
     }
+
 
     /*will throw an exception if non-vegan food is added to a vegan diet*/
     @Test (expected = IllegalArgumentException.class)
@@ -60,7 +58,7 @@ public class VeganDietTest {
         onlyVeganFood[1] = new Food("Nuts", true);
         onlyVeganFood[2] = new Food("Spaghetti", false); /*non-vegan*/
         VeganDiet diet = new VeganDiet();
-        diet.setVeganTrueIfFoodIsVegan(onlyVeganFood);
+        diet.setVeganStateToTrue(onlyVeganFood);
 
         assertTrue(diet.isVegan());
 

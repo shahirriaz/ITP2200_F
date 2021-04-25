@@ -2,14 +2,26 @@ import java.util.Arrays;
 
 public class Person{
 
+
     Food favoriteFood;
     Food[] allergies;
     Diet diet;
     Float weight;
 
-//    public Person() {}
+    public Person() {}
+
+    public void setVeganDietIfFoodIsVegan(Person p, Food favoriteFood, Diet diet){
+        if(!favoriteFood.isVegan) throw new IllegalArgumentException("Favorite Food is non-vegan, cannot follow a non-vegan deit");
+        p.setFavoriteFood(favoriteFood);
+        p.setDiet(diet);
+    }
 
 
+
+    public Person(Food favoriteFood, Diet diet) {
+        this.favoriteFood = favoriteFood;
+        this.diet = diet;
+    }
 
     public Person(Food favoriteFood, Food[] allergies, Diet diet, Float weight) {
         this.favoriteFood = favoriteFood;

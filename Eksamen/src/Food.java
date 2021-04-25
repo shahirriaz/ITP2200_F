@@ -10,6 +10,18 @@ public class Food {
         this.isVegan = isVegan;
     }
 
+    public Food(String name, FoodType type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public Food(String name, FoodType type, boolean isVegan) {
+        this.name = name;
+        this.type = type;
+        this.isVegan = isVegan;
+    }
+
+
     public Food(String name, boolean isVegan, float caloriesPerDay, FoodType type) {
         this.name = name;
         this.isVegan = isVegan;

@@ -1,37 +1,35 @@
-import java.util.Arrays;
-import java.util.Date;
-
 public class FlexitarianDiet extends Diet {
 
     Float maxMeatGramsPerWeek;
     Food preferredMeat;
 
-    public FlexitarianDiet() {
-    }
+    public FlexitarianDiet() { }
 
     public FlexitarianDiet(String name){
         super.setName(name);
     }
 
     /*
-     * Whether a diet is non-vegan or vegan depends on if the food is vegan or non-vegan, this method checks that
-     * */
+    * Will throw an exception if preferredMeat is vegan, otherwise it will assign correct meat to the
+    * preferredMeat property
+    * */
+    public FlexitarianDiet(Food preferredMeat) {
+        if(preferredMeat.isVegan) throw
+                new IllegalArgumentException("This diet only contains non-vegan meat of type protein");
+        this.preferredMeat = preferredMeat;
+    }
 
-    public void setVeganFalseIfFoodIsNonVegan(Food[] food){
-        for (Food f: food) if (!f.isVegan){
+
+    public void setVeganStateToFalse(Food[] food){
+        for (Food f: food)
+            if (!f.isVegan){
             super.setVegan(false);
             super.setAllowedFood(food);
         }
-
     }
-
-    /*
-    * Whether a diet is non-vegan or vegan depends on if the food is vegan or non-vegan, this method checks that
-    * */
-
-    public void setVeganTrueIfFoodIsVegan(Food[] food){
+    public void setVeganStateToTrue(Food[] food){
         for(Food f: food)
-                /*if food is not vegan*/
+            /*if food is not vegan*/
             if (!f.isVegan)
                 throw new IllegalArgumentException("A vegan diet cannot contain any non-vegan food");
             else {
@@ -39,6 +37,7 @@ public class FlexitarianDiet extends Diet {
                 super.setAllowedFood(food);
             }
     }
+
 
 
     /*IF THE DIET LASTS FOR ONLY DAYS*/
@@ -53,6 +52,14 @@ public class FlexitarianDiet extends Diet {
         super.setMonthDuration(monthDuration);
     }
 
+/*GETTER AND SETTER*/
+    public Food getPreferredMeat() {
+        return preferredMeat;
+    }
+
+    public void setPreferredMeat(Food preferredMeat) {
+        this.preferredMeat = preferredMeat;
+    }
 
 }
 

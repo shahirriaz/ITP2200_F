@@ -13,8 +13,9 @@ public class VeganDiet extends Diet  {
     /*
     * If ONE food is non-vegan, then the whole diet is non-vegan regardless if one or multiple food is vegan
     * */
-    public void setVeganFalseIfFoodIsNonVegan(Food[] food){
-        for (Food f: food) if(!f.isVegan) {
+    public void setVeganStateToFalse(Food[] food){
+        for (Food f: food)
+            if(!f.isVegan) {
             super.setVegan(false);
             super.setAllowedFood(food);
 
@@ -24,7 +25,7 @@ public class VeganDiet extends Diet  {
     /*
     * If the food is only vegan, then the whole diet is set to Vegan
     * */
-    public void setVeganTrueIfFoodIsVegan(Food[] food){
+    public void setVeganStateToTrue(Food[] food){
         for(Food f: food)
             /*if food is not vegan throw exception*/ {
             if (!f.isVegan) throw new IllegalArgumentException("A vegan diet cannot contain any non-vegan food");
