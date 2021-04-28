@@ -1,4 +1,4 @@
-public class FlexitarianDiet extends Diet {
+public class  FlexitarianDiet extends Diet {
 
     Float maxMeatGramsPerWeek;
     Food preferredMeat;
@@ -9,6 +9,21 @@ public class FlexitarianDiet extends Diet {
         super.setName(name);
     }
 
+
+    public FlexitarianDiet(Food[] allowedFood){
+        super.setAllowedFood(allowedFood);
+    }
+
+
+    @Override
+    public boolean isCompatible(Person person) {
+        if(person.getFavoriteFood().isVegan && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50)
+            return true;
+        return false;
+
+    }
+
+
     /*
     * Will throw an exception if preferredMeat is vegan, otherwise it will assign correct meat to the
     * preferredMeat property
@@ -17,25 +32,6 @@ public class FlexitarianDiet extends Diet {
         if(preferredMeat.isVegan) throw
                 new IllegalArgumentException("This diet only contains non-vegan meat of type protein");
         this.preferredMeat = preferredMeat;
-    }
-
-
-    public void setVeganStateToFalse(Food[] food){
-        for (Food f: food)
-            if (!f.isVegan){
-            super.setVegan(false);
-            super.setAllowedFood(food);
-        }
-    }
-    public void setVeganStateToTrue(Food[] food){
-        for(Food f: food)
-            /*if food is not vegan*/
-            if (!f.isVegan)
-                throw new IllegalArgumentException("A vegan diet cannot contain any non-vegan food");
-            else {
-                super.setVegan(true);
-                super.setAllowedFood(food);
-            }
     }
 
 

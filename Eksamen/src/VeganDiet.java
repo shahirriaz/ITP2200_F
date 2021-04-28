@@ -3,36 +3,63 @@ public class VeganDiet extends Diet  {
 
     Float minWeightKg;
 
-
     public VeganDiet(){}
+
+    public VeganDiet(Float minWeightKg) {
+        this.minWeightKg = minWeightKg;
+    }
+
+
+    @Override
+    public boolean isCompatible(Person person) {
+        if(person.getFavoriteFood().isVegan && person.checkWeightCompatibility(person.getWeight())
+        && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50)
+                return true;
+   return false;
+
+    }
+
+    public VeganDiet(Food favoriteFood, Float minWeight){
+        super.setFood(favoriteFood);
+        this.minWeightKg = minWeight;
+    }
+
+
+    public VeganDiet(Food[] allowedFood, Float minWeightKg) {
+        this.minWeightKg = minWeightKg;
+        super.setAllowedFood(allowedFood);
+
+    }
+
+//    public VeganDiet(Food food){
+//        if(food.isVegan)
+//        super.setFood(food);
+//        else
+//            throw new IllegalArgumentException("Cannot follow vegan diet");
+//    }
+
+
+    public VeganDiet(Food[] allowedFood){
+        super.setAllowedFood(allowedFood);
+        if (isVeganOrNot(allowedFood) == allowedFood.length)
+            super.setVegan(true);
+    }
+
+
+    public int isVeganOrNot(Food[] allowedFood){
+        int foodThatIsVegan = 0;
+        for (Food food : allowedFood) {
+            if (food.isVegan)
+                foodThatIsVegan++;
+        }
+        return foodThatIsVegan;
+
+    }
 
     public VeganDiet(String name){
         super.setName(name);
     }
 
-    /*
-    * If ONE food is non-vegan, then the whole diet is non-vegan regardless if one or multiple food is vegan
-    * */
-    public void setVeganStateToFalse(Food[] food){
-        for (Food f: food)
-            if(!f.isVegan) {
-            super.setVegan(false);
-            super.setAllowedFood(food);
-
-        }
-    }
-
-    /*
-    * If the food is only vegan, then the whole diet is set to Vegan
-    * */
-    public void setVeganStateToTrue(Food[] food){
-        for(Food f: food)
-            /*if food is not vegan throw exception*/ {
-            if (!f.isVegan) throw new IllegalArgumentException("A vegan diet cannot contain any non-vegan food");
-            super.setVegan(true);
-            super.setAllowedFood(food);
-        }
-    }
 
     public VeganDiet(String name, int daysDuration){
         super.setName(name);
@@ -44,4 +71,14 @@ public class VeganDiet extends Diet  {
         super.setDaysDuration(daysDuration);
         super.setMonthDuration(monthDuration);
     }
+
+    public Float getMinWeightKg() {
+        return minWeightKg;
+    }
+
+    public void setMinWeightKg(Float minWeightKg) {
+        this.minWeightKg = minWeightKg;
+    }
+
+
 }

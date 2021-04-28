@@ -10,6 +10,8 @@ public abstract class Diet {
     int monthDuration;
     String purpose;
     Food[] allowedFood;
+
+    Food food;
     boolean isVegan;
 
 
@@ -36,6 +38,10 @@ public abstract class Diet {
         }
         return "The following food is allowed in this " + diet.getName() + ": "+ result;
     }
+
+
+    public abstract boolean isCompatible(Person person);
+
 
     /*GETTER AND SETTERS*/
 
@@ -84,6 +90,7 @@ public abstract class Diet {
     }
 
     public void setAllowedFood(Food[] allowedFood) {
+
         this.allowedFood = allowedFood;
     }
 
@@ -94,6 +101,15 @@ public abstract class Diet {
     public void setVegan(boolean vegan) {
         isVegan = vegan;
     }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
 
     @Override
     public String toString() {

@@ -23,46 +23,68 @@ public class VeganDietTest {
 
     }
 
-    /*will check if i add ONLY NONE-VEGAN FOOD, then the diet is non-vegan*/
     @Test
-    public void setVeganStateToFalseTest_a() {
-        Food[] nonVeganFood = new Food[3];
-        nonVeganFood[0] = new Food("Lasagna", false);
-        nonVeganFood[1] = new Food("Meatball", false);
-        nonVeganFood[2] = new Food("Eggs", false);
-        VeganDiet veganDiet = new VeganDiet();
-        veganDiet.setVeganStateToFalse(nonVeganFood);
+    public void isCompatibleTest(){
+        VeganDiet veganDiet = new VeganDiet(60f);
+        Person person = new Person(new Food("Pizza", false), veganDiet, 55f);
+        veganDiet.isCompatible(person);
 
-        assertFalse(veganDiet.isVegan);
+        assertFalse(person.getFavoriteFood().isVegan);
 
     }
 
-    /*will check if i add atleast ONE NONE-VEGAN food*/
-    @Test
-    public void setVeganStateToFalse_b() {
-        Food[] nonVeganFood = new Food[3];
-        nonVeganFood[0] = new Food("Lasagna", false); /*One none-vegan*/
-        nonVeganFood[1] = new Food("Apple", true);
-        nonVeganFood[2] = new Food("Banana", true);
-        VeganDiet veganDiet = new VeganDiet();
+    @Test // public boolean isCompatible(Person person)
+    public void isCompatibleTest_2(){
+        Food[] allowedFood = new Food[7];
+        allowedFood[0] = new Food("Fish", FoodType.Protein, false);
+        allowedFood[1] = new Food("Potato", FoodType.Carb, true);
+        allowedFood[2] = new Food("Rice", FoodType.Carb, true);
+        allowedFood[3] = new Food("Diary", FoodType.Protein, false);
+        allowedFood[4] = new Food("Bread", FoodType.Carb, true);
+        allowedFood[5] = new Food("Juice", FoodType.Carb, true);
+        allowedFood[6] = new Food("Nudler", FoodType.Carb, true);
 
-        assertFalse(veganDiet.isVegan);
+        Food[] allergies = new Food[3];
+        allergies[0] = new Food("Bread");
+        allergies[1] = new Food("Diary");
+        allergies[2] = new Food("Rice");
+
+        VeganDiet veganDiet = new VeganDiet(allowedFood,60f);
+
+        Person person = new Person(new Food("Apple", true), veganDiet, 61f);
+        veganDiet.isCompatible(person);
+
+        assertTrue(person.getFavoriteFood().isVegan);
+        assertTrue(person.getWeight() > veganDiet.minWeightKg);
+        assertTrue(person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50);
     }
 
 
-    /*will throw an exception if non-vegan food is added to a vegan diet*/
-    @Test (expected = IllegalArgumentException.class)
-    public void setVeganTrueIfFoodIsVeganExceptionTest() {
-        Food[] onlyVeganFood = new Food[3];
-        onlyVeganFood[0] = new Food("Apple", true);
-        onlyVeganFood[1] = new Food("Nuts", true);
-        onlyVeganFood[2] = new Food("Spaghetti", false); /*non-vegan*/
-        VeganDiet diet = new VeganDiet();
-        diet.setVeganStateToTrue(onlyVeganFood);
+    @Test //public VeganDiet(Food favoriteFood, Float minWeight)
+    public void  VeganDiet(){
+        VeganDiet veganDiet = new VeganDiet(new Food("Apple", true), 65f);
 
-        assertTrue(diet.isVegan());
-
+        assertTrue(veganDiet.getFood().isVegan);
+        assertEquals("Apple", veganDiet.getFood().getName());
+        assertEquals(65f, veganDiet.getMinWeightKg());
     }
+
+    @Test //VeganDiet(Food[] allowedFood, Float minWeightKg)
+    public void  VeganDiet2(){
+        Food[] allowedFood = new Food[4];
+        allowedFood[0] = new Food("Fish", FoodType.Protein, false);
+        allowedFood[1] = new Food("Potato", FoodType.Carb, true);
+        allowedFood[2] = new Food("Rice", FoodType.Carb, true);
+        allowedFood[3] = new Food("Diary", FoodType.Protein, false);
+
+        VeganDiet veganDiet = new VeganDiet(allowedFood, 65f);
+
+
+          assertTrue(veganDiet.getAllowedFood().length >= 4 );
+            assertEquals(65f, veganDiet.getMinWeightKg());
+    }
+
+
 
     @Test
     public void VeganDietDaysDurationTest(){
