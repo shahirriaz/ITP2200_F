@@ -5,29 +5,39 @@ public class LowCarbDiet extends Diet {
 
     public LowCarbDiet(){}
 
+    public LowCarbDiet(String name){
+        super.setName(name);
+    }
+
     public LowCarbDiet(Float minWeightKg) {
         this.minWeightKg = minWeightKg;
     }
 
-    public LowCarbDiet(Food[] allowedFood, Float minWeightKg) {
-        this.minWeightKg = minWeightKg;
-        throwError(allowedFood);
+    @Override
+    public boolean canBeFollowedOrNotBy(Person person) {
+        if(person.checkWeightCompatibility(person.getWeight()) && (person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50) &&
+                (maxiMumCarbFoodAllowed(allowedFood) <= 2)
+                && person.getFavoriteFood().isVegan && (!(person.diet instanceof VeganDiet))
+
+        ){
+                 person.setDiet(person.diet);
+                 return true;
+        }else
+            throw new IllegalArgumentException("This diet cannot be followed");
+    }
+
+
+    public LowCarbDiet(String name, Food[] allowedFood, Float minWeightKg) {
+        super.setName(name);
         super.setAllowedFood(allowedFood);
-
+        this.minWeightKg = minWeightKg;
     }
 
-    private void throwError(Food[] allowedFood) {
-        if (maxiMumCarbFoodAllowed(allowedFood) > 2)
-            throw new IllegalArgumentException("Cannot contain more than two carb foods");
-    }
 
     public LowCarbDiet(Food[] allowedFood ) {
-        throwError(allowedFood);
         super.setAllowedFood(allowedFood);
-
         if (isVeganOrNot(allowedFood) == allowedFood.length)
             super.setVegan(true);
-
     }
 
     public int isVeganOrNot(Food[] allowedFood){
@@ -39,16 +49,6 @@ public class LowCarbDiet extends Diet {
         return foodThatIsVegan;
 
 
-    }
-    public LowCarbDiet(String name){
-        super.setName(name);
-    }
-
-    public LowCarbDiet(Food food){
-        if(food.isVegan)
-            super.setFood(food);
-        else
-            throw new IllegalArgumentException("Cannot follow vegan diet");
     }
 
 
@@ -82,8 +82,4 @@ public class LowCarbDiet extends Diet {
         this.minWeightKg = minWeightKg;
     }
 
-    @Override
-    public boolean isCompatible(Person person) {
-        return false;
-    }
 }

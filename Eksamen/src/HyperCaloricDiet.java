@@ -4,22 +4,46 @@ public class HyperCaloricDiet extends Diet {
     Float maxWeightKg;
     Float minCaloriesPerDay;
 
-
-
-     @Override
-    public boolean isCompatible(Person person) {
-        if(person.checkWeightCompatibility2(person.getWeight())
-                && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50)
-            return true;
-        return false;
+    public HyperCaloricDiet() {
 
     }
 
-    public HyperCaloricDiet(Food favoriteFood, Float maxWeightKg){
+
+    @Override
+    public boolean canBeFollowedOrNotBy(Person person) {
+        if(person.getFavoriteFood().isVegan && (!(person.diet instanceof VeganDiet))
+                && person.checkWeightCompatibility2(person.getWeight())
+                && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50){
+            person.setDiet(person.diet);
+            return true;
+        }else
+            throw new IllegalArgumentException("This diet cannot be followed");
+    }
+
+    public HyperCaloricDiet(String name, Food favoriteFood, Float maxWeightKg){
+        super.setName(name);
         super.setFood(favoriteFood);
         this.maxWeightKg = maxWeightKg;
     }
 
+    public HyperCaloricDiet(String name, Food[] favoriteFood, Float maxWeightKg){
+        super.setName(name);
+        super.setAllowedFood(favoriteFood);
+        this.maxWeightKg = maxWeightKg;
+        if (isVeganOrNot(allowedFood) == allowedFood.length)
+            super.setVegan(true);
+    }
+
+    public int isVeganOrNot(Food[] allowedFood){
+        int foodThatIsVegan = 0;
+        for (Food food : allowedFood) {
+            if (food.isVegan)
+                foodThatIsVegan++;
+        }
+        return foodThatIsVegan;
+
+
+    }
 
 
     public HyperCaloricDiet(Float maxWeightKg, Float minCaloriesPerDay) {

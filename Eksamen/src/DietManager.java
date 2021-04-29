@@ -2,20 +2,16 @@ public class DietManager {
 
     boolean areCompatible;
 
+    public DietManager(){};
 
-    public DietManager(boolean areCompatible) {
-        this.areCompatible = areCompatible;
+    public boolean isAreCompatible(Person p, Diet diet){
+        if(!p.getFavoriteFood().isVegan() && diet instanceof VeganDiet)
+            throw new IllegalArgumentException("Error, favorite food is nonVegan");
+        new Person(p.getFavoriteFood(), p.getAllergies(), p.getWeight()).setDiet(diet);
+        return true;
     }
-
-    public DietManager() {
+    public HyperCaloricDiet randomDiet(Person p, Food[] foods){
+        return null;
 
     }
-
-
-//    public boolean isAreCompatible(Person p, Diet diet)throws IllegalArgumentException{
-//    }
-//    public HyperCaloricDiet randomDiet(Person p, Food[] foods){
-//        return null;
-//
-//    }
 }

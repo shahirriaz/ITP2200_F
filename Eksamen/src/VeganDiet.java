@@ -11,41 +11,50 @@ public class VeganDiet extends Diet  {
 
 
     @Override
-    public boolean isCompatible(Person person) {
-        if(person.getFavoriteFood().isVegan && person.checkWeightCompatibility(person.getWeight())
-        && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50)
-                return true;
-   return false;
-
+    public boolean canBeFollowedOrNotBy(Person person) {
+        if(person.getFavoriteFood().isVegan && person.diet.isVegan
+                && person.checkWeightCompatibility(person.getWeight())
+                && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50
+                &&  (!(person.diet instanceof FlexitarianDiet))
+        ){
+            person.setDiet(person.diet);
+            return true;
+        }else
+            throw new IllegalArgumentException("This diet cannot be followed");
     }
 
-    public VeganDiet(Food favoriteFood, Float minWeight){
+    public VeganDiet(String name, Food favoriteFood, Float minWeight){
+        super.setName(name);
         super.setFood(favoriteFood);
         this.minWeightKg = minWeight;
     }
 
+    /*
+     * Setter vegan til true kun hvis det er vegan food i arrayet
+     * The food will be evaluated in each constructor, if it contains any non-vegan food
+     * */
 
-    public VeganDiet(Food[] allowedFood, Float minWeightKg) {
+    public VeganDiet(String name, Food[] allowedFood, Float minWeightKg) {
+        super.setName(name);
         this.minWeightKg = minWeightKg;
         super.setAllowedFood(allowedFood);
+        if (isVeganOrNot(allowedFood) == allowedFood.length)
+            super.setVegan(true);
 
     }
 
-//    public VeganDiet(Food food){
-//        if(food.isVegan)
-//        super.setFood(food);
-//        else
-//            throw new IllegalArgumentException("Cannot follow vegan diet");
-//    }
-
-
-    public VeganDiet(Food[] allowedFood){
+    /*
+    * Setter vegan til true kun hvis det er vegan food i arrayet
+    * */
+    public VeganDiet(String name, Food[] allowedFood){
+        super.setName(name);
         super.setAllowedFood(allowedFood);
         if (isVeganOrNot(allowedFood) == allowedFood.length)
             super.setVegan(true);
     }
 
 
+    /*her sjekkes om maten i arrayet er vegan eller ikke*/
     public int isVeganOrNot(Food[] allowedFood){
         int foodThatIsVegan = 0;
         for (Food food : allowedFood) {

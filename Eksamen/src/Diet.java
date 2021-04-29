@@ -10,7 +10,6 @@ public abstract class Diet {
     int monthDuration;
     String purpose;
     Food[] allowedFood;
-
     Food food;
     boolean isVegan;
 
@@ -40,7 +39,8 @@ public abstract class Diet {
     }
 
 
-    public abstract boolean isCompatible(Person person);
+    /*Added this method in Diet because all diets use this method.*/
+    public abstract boolean canBeFollowedOrNotBy(Person person);
 
 
     /*GETTER AND SETTERS*/

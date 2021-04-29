@@ -5,10 +5,16 @@ public class Person{
     Food favoriteFood;
     Food[] allergies;
     Diet diet;
+
     Float weight;
 
 
     public Person() {}
+
+    public Person(Diet diet, Float weight) {
+        this.weight = weight;
+        this.diet = diet;
+    }
 
     public Person(Food favoriteFood, Food[] allergies, Diet diet, Float weight) {
         this.favoriteFood = favoriteFood;
@@ -29,30 +35,18 @@ public class Person{
         this.diet = diet;
     }
 
-//    public void checkCompatibilityVeganFood(Diet diet){
-//       if(!followCompatibility(getFavoriteFood()) && diet.isVegan)
-//       setDiet(diet);
-//    }
-//
-//    public void weightLessOrMoreThanReq(Diet diet){
-//        if (checkWeightCompatibility(getWeight()))
-//        throw new IllegalArgumentException("Cannot follow this diet because you are underweight");
-//        else if(checkWeightCompatibility2(getWeight()))
-//            throw new IllegalArgumentException("Cannot follow this diet because you are overWeight");
-//        setDiet(diet);
-//
-//    }
-
-//    public boolean followCompatibility(Food favoriteFood){
-//        return favoriteFood.isVegan;
-//    }
+    public Person(Food favoriteFood, Food[] allergies, Float weight) {
+        this.favoriteFood = favoriteFood;
+        this.allergies = allergies;
+        this.weight = weight;
+    }
 
     public boolean checkWeightCompatibility(Float weight){
         return (weight > 60);
     }
 
     public boolean checkWeightCompatibility2(Float weight){
-        return  (weight > 80);
+        return  (weight < 80);
     }
 
 

@@ -12,8 +12,9 @@ public class DietTest {
         food[1] =  new Food("Beans", FoodType.Protein, true);
         food[2] =  new Food("Pølse", FoodType.Carb, false);
 
-        VeganDiet diet = new VeganDiet(food);
+        VeganDiet diet = new VeganDiet("VeganDiet",food);
 
+        /*Cannot contain any none vegan food*/
         assertFalse(diet.isVegan);
     }
 
@@ -24,9 +25,10 @@ public class DietTest {
         food[1] =  new Food("Beans", FoodType.Protein, true);
         food[2] =  new Food("Avocado", FoodType.Carb, true);
 
-        VeganDiet diet = new VeganDiet(food);
+        VeganDiet diet = new VeganDiet("VeganDiet",food);
         LowCarbDiet diet1 = new LowCarbDiet(food);
 
+        /*Diet is vegan if it only contains vegan food*/
         assertTrue(diet.isVegan);
          assertTrue(diet1.isVegan);
 
@@ -37,7 +39,7 @@ public class DietTest {
      * Correct values are: non-vegan food, FoodType.Protein
      * */
     @Test
-    public void FlexitarianDietPreferredMeatTest(){
+    public void req_1_d_0(){
         FlexitarianDiet f = new FlexitarianDiet(new Food("Beef", FoodType.Protein, false));
         assertTrue(f.getPreferredMeat().name.equals("Beef")
                 && f.getPreferredMeat().type.equals(FoodType.Protein));
@@ -47,13 +49,13 @@ public class DietTest {
     /*expected behaviour: It will throw exception because preferredMeat MUST be non-vegan food of protein
     type. */
     @Test (expected = IllegalArgumentException.class)
-    public void FlexitarianDietPreferredMeatTest_ExceptionTest(){
-        FlexitarianDiet preferredMeat = new FlexitarianDiet(new Food("KidneyBeans", FoodType.Carb, true));
+    public void req_1_d_1(){
+        new FlexitarianDiet(new Food("KidneyBeans", FoodType.Carb, true));
     }
 
     /*Maximum number of foodType Carb is two*/
     @Test
-    public void noMoreThanTwoCarbFoodsTest_a(){
+    public void  req_1_e_0(){
         Food[] carbFoods = new Food[2];
         carbFoods[0] = new Food("Rice", FoodType.Carb);
         carbFoods[1] = new Food("Potato", FoodType.Carb);
@@ -64,32 +66,36 @@ public class DietTest {
 
     /*Maximum number of foodType Carb is two*/
     @Test (expected = IllegalArgumentException.class)
-    public void noMoreThanTwoCarbFoodsTest_b(){
+    public void  req_1_e_1(){
         Food[] carbFoods = new Food[3];
         carbFoods[0] = new Food("Rice", FoodType.Carb);
         carbFoods[1] = new Food("Potato", FoodType.Carb);
         carbFoods[2] = new Food("Hamburger", FoodType.Carb);
-        LowCarbDiet lowCarbDiet = new LowCarbDiet(carbFoods);
+         new LowCarbDiet(carbFoods);
 
     }
 
 
     @Test
-    public void writeDaysDurationTest(){
+    public void req_3_a_0(){
         FlexitarianDiet diet1 = new FlexitarianDiet("FlexitarianDiet", 90);
         String result = diet1.writeDuration(diet1);
+
+        /*0 years, 0 months, 90 days*/
         assertEquals("This FlexitarianDiet lasts for 0 years, 0 months ,90 days", result);
     }
 
     @Test
-    public void writeDaysMonthDurationTest(){
+    public void req_3_a_1(){
         FlexitarianDiet diet1 = new FlexitarianDiet("FlexitarianDiet", 90, 6);
         String result = diet1.writeDuration(diet1);
+
+        /*0 years, 6 months, 90 days*/
         assertEquals("This FlexitarianDiet lasts for 0 years, 6 months ,90 days", result);
     }
 
     @Test
-    public void writeAllowedFoodTest(){
+    public void req_3_b(){
         FlexitarianDiet diet1 = new FlexitarianDiet("FlexitarianDiet");
         Food[] allowedFood = new Food[2];
         allowedFood[0] = new Food("Salad");

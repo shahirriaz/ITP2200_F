@@ -9,18 +9,19 @@ public class  FlexitarianDiet extends Diet {
         super.setName(name);
     }
 
-
-    public FlexitarianDiet(Food[] allowedFood){
-        super.setAllowedFood(allowedFood);
+    @Override
+    public boolean canBeFollowedOrNotBy(Person person) {
+        if(person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50 && (!(person.diet instanceof VeganDiet))){
+            person.setDiet(person.diet);
+            return true;
+        }else
+            throw new IllegalArgumentException("This diet cannot be followed");
     }
 
 
-    @Override
-    public boolean isCompatible(Person person) {
-        if(person.getFavoriteFood().isVegan && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50)
-            return true;
-        return false;
-
+    public FlexitarianDiet(String name, Food[] allowedFood){
+        super.setName(name);
+        super.setAllowedFood(allowedFood);
     }
 
 

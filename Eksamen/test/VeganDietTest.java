@@ -23,46 +23,46 @@ public class VeganDietTest {
 
     }
 
-    @Test
-    public void isCompatibleTest(){
-        VeganDiet veganDiet = new VeganDiet(60f);
-        Person person = new Person(new Food("Pizza", false), veganDiet, 55f);
-        veganDiet.isCompatible(person);
-
-        assertFalse(person.getFavoriteFood().isVegan);
-
-    }
-
-    @Test // public boolean isCompatible(Person person)
-    public void isCompatibleTest_2(){
-        Food[] allowedFood = new Food[7];
-        allowedFood[0] = new Food("Fish", FoodType.Protein, false);
-        allowedFood[1] = new Food("Potato", FoodType.Carb, true);
-        allowedFood[2] = new Food("Rice", FoodType.Carb, true);
-        allowedFood[3] = new Food("Diary", FoodType.Protein, false);
-        allowedFood[4] = new Food("Bread", FoodType.Carb, true);
-        allowedFood[5] = new Food("Juice", FoodType.Carb, true);
-        allowedFood[6] = new Food("Nudler", FoodType.Carb, true);
+    @Test // public boolean canBeFollowedOrNotBy(Person person)
+    /*Will throw error if a diet other than Vegan diet is assigned to Person*/
+    public void canBeFollowedOrNotByTest_1(){
+        Food[] allowedFood = new Food[5];
+        allowedFood[0] = new Food("Potato", FoodType.Carb, true);
+        allowedFood[1] = new Food("Rice", FoodType.Carb, true);
+        allowedFood[2] = new Food("Bread", FoodType.Carb, true);
+        allowedFood[3] = new Food("Juice", FoodType.Carb, true);
+        allowedFood[4] = new Food("Nudler", FoodType.Carb, true);
 
         Food[] allergies = new Food[3];
         allergies[0] = new Food("Bread");
         allergies[1] = new Food("Diary");
         allergies[2] = new Food("Rice");
 
-        VeganDiet veganDiet = new VeganDiet(allowedFood,60f);
+        VeganDiet veganDiet = new VeganDiet("VeganDiet",allowedFood,60f);
+        Food favoriteFood = new Food("Apple", true);
 
-        Person person = new Person(new Food("Apple", true), veganDiet, 61f);
-        veganDiet.isCompatible(person);
+        Person person = new Person(favoriteFood, allergies, veganDiet, 70f);
+        veganDiet.canBeFollowedOrNotBy(person);
 
         assertTrue(person.getFavoriteFood().isVegan);
         assertTrue(person.getWeight() > veganDiet.minWeightKg);
         assertTrue(person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50);
+        assertTrue(person.diet.isVegan);
+
+        assertTrue(veganDiet.canBeFollowedOrNotBy(person));
+
+        /*will throw error -- cannot add flexitarianDiet to VeganDiet*/
+        person.setDiet(new FlexitarianDiet());
+
+        assertThrows(IllegalArgumentException.class,() -> veganDiet.canBeFollowedOrNotBy(person));
+
+
     }
 
 
     @Test //public VeganDiet(Food favoriteFood, Float minWeight)
     public void  VeganDiet(){
-        VeganDiet veganDiet = new VeganDiet(new Food("Apple", true), 65f);
+        VeganDiet veganDiet = new VeganDiet("VeganDiet", new Food("Apple", true), 65f);
 
         assertTrue(veganDiet.getFood().isVegan);
         assertEquals("Apple", veganDiet.getFood().getName());
@@ -77,11 +77,11 @@ public class VeganDietTest {
         allowedFood[2] = new Food("Rice", FoodType.Carb, true);
         allowedFood[3] = new Food("Diary", FoodType.Protein, false);
 
-        VeganDiet veganDiet = new VeganDiet(allowedFood, 65f);
+        VeganDiet veganDiet = new VeganDiet("VeganDiet", allowedFood, 65f);
 
 
           assertTrue(veganDiet.getAllowedFood().length >= 4 );
-            assertEquals(65f, veganDiet.getMinWeightKg());
+          assertEquals(65f, veganDiet.getMinWeightKg());
     }
 
 
