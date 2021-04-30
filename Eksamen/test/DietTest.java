@@ -15,7 +15,7 @@ public class DietTest {
         VeganDiet diet = new VeganDiet("VeganDiet",food);
 
         /*Cannot contain any none vegan food*/
-        assertFalse(diet.isVegan);
+        assertFalse(diet.isVeganCompatible(food));
     }
 
     @Test
@@ -28,9 +28,9 @@ public class DietTest {
         VeganDiet diet = new VeganDiet("VeganDiet",food);
         LowCarbDiet diet1 = new LowCarbDiet(food);
 
-        /*Diet is vegan if it only contains vegan food*/
-        assertTrue(diet.isVegan);
-         assertTrue(diet1.isVegan);
+        assertTrue(diet.isVeganCompatible(food));
+
+
 
     }
 

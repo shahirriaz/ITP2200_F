@@ -38,8 +38,7 @@ public class VeganDiet extends Diet  {
         super.setName(name);
         this.minWeightKg = minWeightKg;
         super.setAllowedFood(allowedFood);
-        if (isVeganOrNot(allowedFood) == allowedFood.length)
-            super.setVegan(true);
+
 
     }
 
@@ -49,20 +48,25 @@ public class VeganDiet extends Diet  {
     public VeganDiet(String name, Food[] allowedFood){
         super.setName(name);
         super.setAllowedFood(allowedFood);
-        if (isVeganOrNot(allowedFood) == allowedFood.length)
-            super.setVegan(true);
+
     }
 
 
     /*her sjekkes om maten i arrayet er vegan eller ikke*/
-    public int isVeganOrNot(Food[] allowedFood){
+    public boolean isVeganCompatible(Food[] allowedFood){
         int foodThatIsVegan = 0;
-        for (Food food : allowedFood) {
-            if (food.isVegan)
+        for (Food food : allowedFood)
+            if(food.isVegan)
                 foodThatIsVegan++;
-        }
-        return foodThatIsVegan;
 
+            if (foodThatIsVegan != allowedFood.length){
+                super.setVegan(false);
+                return false;
+            }
+            else
+                super.setVegan(true);
+                new VeganDiet("VeganDiet", allowedFood);
+                return true;
     }
 
     public VeganDiet(String name){

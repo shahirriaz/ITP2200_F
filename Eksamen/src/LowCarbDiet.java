@@ -36,8 +36,7 @@ public class LowCarbDiet extends Diet {
 
     public LowCarbDiet(Food[] allowedFood ) {
         super.setAllowedFood(allowedFood);
-        if (isVeganOrNot(allowedFood) == allowedFood.length)
-            super.setVegan(true);
+
     }
 
     public int isVeganOrNot(Food[] allowedFood){
