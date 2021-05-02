@@ -90,11 +90,62 @@ public class HyperCaloricDietTest {
         Food favoriteFood = new Food("Kiwi", true);
 
         Person person = new Person(favoriteFood, hyperCaloricDiet, 70f);
-
-        assertTrue( person.diet.isVegan );
         assertTrue( hyperCaloricDiet.canBeFollowedOrNotBy( person ) );
 
-
     }
+
+    @Test
+    public void isVeganCompatible1(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("Pølse", FoodType.Carb, false);
+
+        HyperCaloricDiet hyperCaloricDiet = new HyperCaloricDiet("HyperCaloric",food);
+        assertFalse(hyperCaloricDiet.isVeganCompatible(food));
+    }
+
+    @Test
+    public void isVeganCompatible2(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("KidneyBean", FoodType.Carb, true);
+
+        HyperCaloricDiet hyperCaloricDiet = new HyperCaloricDiet("HyperCaloric",food);
+        assertTrue(hyperCaloricDiet.isVeganCompatible(food));
+    }
+
+    @Test
+    public void HyperCaloricDietDaysDurationTest(){
+        HyperCaloricDiet hyperCaloricDiet = new HyperCaloricDiet("HyperCaloricDiet", 30);
+        assertEquals("HyperCaloricDiet", hyperCaloricDiet.getName());
+        assertEquals(30, hyperCaloricDiet.getDaysDuration());
+
+        hyperCaloricDiet.setName("HyperCaloricNameChangeTest");
+        hyperCaloricDiet.setDaysDuration(60);
+        assertEquals("HyperCaloricNameChangeTest", hyperCaloricDiet.getName());
+        assertEquals(60, hyperCaloricDiet.getDaysDuration());
+    }
+
+    /*sets the duration of diet in days and months*/
+    @Test
+    public void HyperCaloricDietDaysMonthDurationTest(){
+        HyperCaloricDiet hyperCaloricDiet  = new HyperCaloricDiet("HyperCaloricDiet", 30, 5);
+        assertEquals("HyperCaloricDiet", hyperCaloricDiet.getName());
+        assertEquals(30, hyperCaloricDiet.getDaysDuration());
+        assertEquals(5, hyperCaloricDiet.getMonthDuration());
+
+        hyperCaloricDiet.setName("HyperCaloricNameChangeTest");
+        hyperCaloricDiet.setDaysDuration(60);
+        hyperCaloricDiet.setMonthDuration(3);
+        assertEquals("HyperCaloricNameChangeTest", hyperCaloricDiet.getName());
+        assertEquals(60, hyperCaloricDiet.getDaysDuration());
+        assertEquals(3, hyperCaloricDiet.getMonthDuration());
+    }
+
+
+
+
 
 }

@@ -5,7 +5,6 @@ public class Person{
     Food favoriteFood;
     Food[] allergies;
     Diet diet;
-
     Float weight;
 
 
@@ -39,6 +38,12 @@ public class Person{
         this.favoriteFood = favoriteFood;
         this.allergies = allergies;
         this.weight = weight;
+    }
+
+    public Person(Food[] allergies, Float weight) {
+        this.allergies = allergies;
+        this.weight = weight;
+
     }
 
     public boolean checkWeightCompatibility(Float weight){

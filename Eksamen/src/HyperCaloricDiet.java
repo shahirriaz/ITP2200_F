@@ -8,6 +8,19 @@ public class HyperCaloricDiet extends Diet {
 
     }
 
+    public HyperCaloricDiet(String name, Food[] food) {
+        super.setName(name);
+        super.setAllowedFood(food);
+    }
+
+    public HyperCaloricDiet(String randomDiet, Food[] goodfood, float maxWeight, float minCaloriesPerDay, int daysDuration) {
+        super.setPurpose(randomDiet);
+        super.setAllowedFood(goodfood);
+        super.setDaysDuration(daysDuration);
+        this.maxWeightKg = maxWeight;
+        this.minCaloriesPerDay = minCaloriesPerDay;
+    }
+
 
     @Override
     public boolean canBeFollowedOrNotBy(Person person) {
@@ -30,20 +43,25 @@ public class HyperCaloricDiet extends Diet {
         super.setName(name);
         super.setAllowedFood(favoriteFood);
         this.maxWeightKg = maxWeightKg;
-        if (isVeganOrNot(allowedFood) == allowedFood.length)
-            super.setVegan(true);
     }
 
-    public int isVeganOrNot(Food[] allowedFood){
+    public boolean isVeganCompatible(Food[] allowedFood){
         int foodThatIsVegan = 0;
-        for (Food food : allowedFood) {
-            if (food.isVegan)
+        for (Food food : allowedFood)
+            if(food.isVegan)
                 foodThatIsVegan++;
+
+        if (foodThatIsVegan != allowedFood.length){
+            super.setVegan(false);
+            return false;
         }
-        return foodThatIsVegan;
-
-
+        else
+            super.setVegan(true);
+        new LowCarbDiet("LowCarbVeganComboDiet", allowedFood);
+        System.out.println("Lowcarb diet is compatible with this food");
+        return true;
     }
+
 
 
     public HyperCaloricDiet(Float maxWeightKg, Float minCaloriesPerDay) {

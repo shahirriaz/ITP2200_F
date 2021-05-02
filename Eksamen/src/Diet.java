@@ -4,6 +4,7 @@ import java.util.Date;
 /*ABSTRACT CLASS*/
 public abstract class Diet {
 
+
     String name;
     int daysDuration;
     int yearsDuration;
@@ -57,10 +58,6 @@ public abstract class Diet {
         return yearsDuration;
     }
 
-    public void setYearsDuration(int yeatsDuration) {
-        this.yearsDuration = yeatsDuration;
-    }
-
     public int getMonthDuration() {
         return monthDuration;
     }
@@ -77,13 +74,6 @@ public abstract class Diet {
         this.daysDuration = daysDuration;
     }
 
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
 
     public Food[] getAllowedFood() {
         return allowedFood;
@@ -111,6 +101,13 @@ public abstract class Diet {
     }
 
 
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
     @Override
     public String toString() {
         return "Diet{" +

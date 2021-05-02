@@ -29,8 +29,7 @@ public class DietTest {
         LowCarbDiet diet1 = new LowCarbDiet(food);
 
         assertTrue(diet.isVeganCompatible(food));
-
-
+        assertTrue(diet1.isVeganCompatible(food));
 
     }
 
@@ -61,18 +60,19 @@ public class DietTest {
         carbFoods[1] = new Food("Potato", FoodType.Carb);
         LowCarbDiet lowCarbDiet = new LowCarbDiet(carbFoods);
 
-        assertTrue(lowCarbDiet.maxiMumCarbFoodAllowed(carbFoods) <= 2);
+        assertTrue(lowCarbDiet.isCarbTotalCompatible(carbFoods));
     }
 
     /*Maximum number of foodType Carb is two*/
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void  req_1_e_1(){
         Food[] carbFoods = new Food[3];
         carbFoods[0] = new Food("Rice", FoodType.Carb);
         carbFoods[1] = new Food("Potato", FoodType.Carb);
         carbFoods[2] = new Food("Hamburger", FoodType.Carb);
-         new LowCarbDiet(carbFoods);
+         LowCarbDiet lowCarbDiet = new LowCarbDiet(carbFoods);
 
+        assertThrows(IllegalArgumentException.class,() -> lowCarbDiet.isCarbTotalCompatible(carbFoods));
     }
 
 
@@ -103,6 +103,36 @@ public class DietTest {
         String result = diet1.writeAllowedFood(allowedFood, diet1);
         assertEquals("The following food is allowed in this FlexitarianDiet: Salad, Soup", result.trim());
     }
+
+    /*sets the duration of diet in days*/
+    @Test
+    public void FlexitarianDietDaysDurationTest(){
+        FlexitarianDiet flexitarianDiet = new FlexitarianDiet("FlexiDiet", 30);
+        assertEquals("FlexiDiet", flexitarianDiet.getName());
+        assertEquals(30, flexitarianDiet.getDaysDuration());
+
+        flexitarianDiet.setName("FlexiDietNameChangeTest");
+        flexitarianDiet.setDaysDuration(60);
+        assertEquals("FlexiDietNameChangeTest", flexitarianDiet.getName());
+        assertEquals(60, flexitarianDiet.getDaysDuration());
+    }
+
+    /*sets the duration of diet in days and months*/
+    @Test
+    public void FlexitarianDietDaysMonthDurationTest(){
+        FlexitarianDiet flexitarianDiet = new FlexitarianDiet("FlexiDiet", 30, 5);
+        assertEquals("FlexiDiet", flexitarianDiet.getName());
+        assertEquals(30, flexitarianDiet.getDaysDuration());
+        assertEquals(5, flexitarianDiet.getMonthDuration());
+
+        flexitarianDiet.setName("FlexiDietNameChangeTest");
+        flexitarianDiet.setDaysDuration(60);
+        flexitarianDiet.setMonthDuration(3);
+        assertEquals("FlexiDietNameChangeTest", flexitarianDiet.getName());
+        assertEquals(60, flexitarianDiet.getDaysDuration());
+        assertEquals(3, flexitarianDiet.getMonthDuration());
+    }
+
 
 
 }

@@ -47,7 +47,6 @@ public class VeganDietTest {
         assertTrue(person.getFavoriteFood().isVegan);
         assertTrue(person.getWeight() > veganDiet.minWeightKg);
         assertTrue(person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50);
-        assertTrue(person.diet.isVegan);
 
         assertTrue(veganDiet.canBeFollowedOrNotBy(person));
 
@@ -55,8 +54,28 @@ public class VeganDietTest {
         person.setDiet(new FlexitarianDiet());
 
         assertThrows(IllegalArgumentException.class,() -> veganDiet.canBeFollowedOrNotBy(person));
+    }
 
+    @Test
+    public void isVeganCompatible1(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("Pølse", FoodType.Carb, false);
 
+        VeganDiet diet = new VeganDiet("VeganDiet",food);
+        assertFalse(diet.isVeganCompatible(food));
+    }
+
+    @Test
+    public void isVeganCompatible2(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("Pølse", FoodType.Carb, true);
+
+        VeganDiet diet = new VeganDiet("VeganDiet",food);
+        assertTrue(diet.isVeganCompatible(food));
     }
 
 

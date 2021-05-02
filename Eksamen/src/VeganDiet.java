@@ -12,7 +12,7 @@ public class VeganDiet extends Diet  {
 
     @Override
     public boolean canBeFollowedOrNotBy(Person person) {
-        if(person.getFavoriteFood().isVegan && person.diet.isVegan
+        if(person.getFavoriteFood().isVegan
                 && person.checkWeightCompatibility(person.getWeight())
                 && person.getPercentThatMatch(allowedFood, person.getAllergies()) <= 50
                 &&  (!(person.diet instanceof FlexitarianDiet))

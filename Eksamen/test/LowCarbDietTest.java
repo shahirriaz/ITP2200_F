@@ -66,7 +66,7 @@ public class LowCarbDietTest {
     }
 
     @Test // public boolean canBeFollowedOrNot(Person person)
-    //more carbs than allowed
+    //only two carbs
     public void canBeFollowedOrNotByTest_3(){
         Food[] allowedFood = new Food[3];
         allowedFood[0] = new Food("Fish", FoodType.Protein, false);
@@ -86,8 +86,83 @@ public class LowCarbDietTest {
 
         assertTrue( lowCarbDiet.canBeFollowedOrNotBy( person ) );
 
-
     }
+
+    @Test
+    public void isVeganCompatible1(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("Pølse", FoodType.Carb, false);
+
+        LowCarbDiet lowCarbDiet = new LowCarbDiet("LowCarbDiet",food);
+        assertFalse(lowCarbDiet.isVeganCompatible(food));
+    }
+
+    @Test
+    public void isVeganCompatible2(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Beans", FoodType.Protein, true);
+        food[2] =  new Food("Gress", FoodType.Carb, true);
+
+        LowCarbDiet lowCarbDiet = new LowCarbDiet("LowCarbDiet",food);
+        assertTrue(lowCarbDiet.isVeganCompatible(food));
+    }
+
+    @Test
+    public void maxiMumCarbFoodAllowed1(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Rice", FoodType.Carb, true);
+        food[1] =  new Food("Banana", FoodType.Carb, true);
+        food[2] =  new Food("Chips", FoodType.Carb, true);
+
+        LowCarbDiet lowCarbDiet = new LowCarbDiet();
+        assertEquals(lowCarbDiet.maxiMumCarbFoodAllowed(food), 3);
+    }
+
+    @Test
+    public void maxiMumCarbFoodAllowed2(){
+        Food[] food = new Food[3];
+        food[0] =  new Food("Chicken", FoodType.Protein, false);
+        food[1] =  new Food("Beef", FoodType.Protein, false);
+        food[2] =  new Food("Pepperoni", FoodType.Protein, false);
+
+        LowCarbDiet lowCarbDiet = new LowCarbDiet();
+        assertEquals(lowCarbDiet.maxiMumCarbFoodAllowed(food), 0);
+    }
+
+    @Test
+    public void LowCarbDaysDurationTest(){
+        LowCarbDiet lowCarbDiet = new LowCarbDiet("LowCarbDiet", 30);
+        assertEquals("LowCarbDiet", lowCarbDiet.getName());
+        assertEquals(30, lowCarbDiet.getDaysDuration());
+
+        lowCarbDiet.setName("LowCarbDietNameChangeTest");
+        lowCarbDiet.setDaysDuration(60);
+        assertEquals("LowCarbDietNameChangeTest", lowCarbDiet.getName());
+        assertEquals(60, lowCarbDiet.getDaysDuration());
+    }
+
+    @Test
+    public void VeganDietDaysAndMonthDurationTest(){
+        LowCarbDiet lowCarbDiet = new LowCarbDiet("LowCarbDiet", 30,3);
+        assertEquals("LowCarbDiet", lowCarbDiet.getName());
+        assertEquals(30, lowCarbDiet.getDaysDuration());
+        assertEquals(3, lowCarbDiet.getMonthDuration());
+
+        lowCarbDiet.setName("LowCarbDietNameChangeTest");
+        lowCarbDiet.setDaysDuration(35);
+        lowCarbDiet.setMonthDuration(6);
+        assertEquals("LowCarbDietNameChangeTest", lowCarbDiet.getName());
+        assertEquals(35, lowCarbDiet.getDaysDuration());
+        assertEquals(6, lowCarbDiet.getMonthDuration());
+    }
+
+
+
+
+
 
 
 

@@ -50,5 +50,26 @@ public class DietManagerTest {
 
     }
 
+    @Test
+    public void randomHyperCaloricDiet(){
+        Food[] foods = new Food[5];
+        foods[0] = new Food( "Potato", FoodType.Carb, true );
+        foods[1] = new Food( "Rice", FoodType.Carb, true );
+        foods[2] = new Food( "Bread", FoodType.Carb, true );
+        foods[3] = new Food( "Juice", FoodType.Carb, true );
+        foods[4] = new Food( "Beef", FoodType.Protein, false );
+
+        Food[] allergies = new Food[1];
+        allergies[0] = new Food( "Bread" );
+
+
+        Person theLuckyOne = new Person(allergies, 70f);
+
+        HyperCaloricDiet randomHyperCaloricDiet = new DietManager().randomDiet(theLuckyOne,foods );
+
+
+
+    }
+
 
 }
